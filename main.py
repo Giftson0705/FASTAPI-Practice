@@ -28,11 +28,40 @@ async def log_requests(request: Request, call_next):
     print(f"[LOG] {request.method} {request.url}")
     response = await call_next(request)
     return response
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI
+# from pydantic import BaseModel,EmailStr,conint,constr,field_validators
+from fastapi import Form, UploadFile, File
 
 
 @app.get("/")
 def read_root():
-    return {"message": "Hello, World!"}
+    return {"message": "Hello, this is api methods"}
+
+
+@app.get("/users/{user_id}")
+def road_user(user_id: int):
+   return {"user_id": user_id}
+
+@app.get("/items/")
+def read_items(skip: int = 0, limit: int = 10):
+   return {"skip": skip, "limit": limit}   
+
+
+@app.post("/items/")
+def create_item(name: str, price: float):
+    return {"item_name": name, "price": price}
+
+
+@app.put("/items/{item_id}")
+def update_item(item_id: int, name: str, price = float):
+    return {"item_id": item_id, "name": name, "price": price}
+
+@app.delete("/items/{item_id}")
+def delete_item(item_id: int):  
+    return {"message": f"Item {item_id} deleted"}
+
+
 
 #Routes
 @app.get("/")
