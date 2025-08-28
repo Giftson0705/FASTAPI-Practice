@@ -11,7 +11,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"message": "Hello, World!"}
+    return {"message": "Hello, this is api methods"}
 
 @app.get("/users/{user_id}")
 def road_user(user_id: int):
