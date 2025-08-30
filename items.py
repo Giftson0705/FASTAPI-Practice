@@ -11,23 +11,21 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-app = FastAPI()
 
-
-@app.get("/items/")
+@router.get("/items/")
 def read_items(skip: int = 0, limit: int = 10):
    return {"skip": skip, "limit": limit}   
 
 
-@app.post("/items/")
+@router.post("/items/")
 def create_item(name: str, price: float):
     return {"item_name": name, "price": price}
 
 
-@app.put("/items/{item_id}")
+@router.put("/items/{item_id}")
 def update_item(item_id: int, name: str, price = float):
     return {"item_id": item_id, "name": name, "price": price}
 
-@app.delete("/items/{item_id}")
+@router.delete("/items/{item_id}")
 def delete_item(item_id: int):  
     return {"message": f"Item {item_id} deleted"}

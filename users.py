@@ -11,27 +11,24 @@ from fastapi import APIRouter
 router = APIRouter()
 
 
-app = FastAPI()
-
-
-@app.get("/users/{user_id}")
+@router.get("/users/{user_id}")
 def road_user(user_id: int):
    return {"user_id": user_id}
 
 
 
 # Example endpoint to demonstrate path parameters
-@app.get("/users/{user_id}")
+@router.get("/users/{user_id}")
 def read_user(user_id: int):
     return {"user_id": user_id}
 
 #example endpoint to demonstrate query parameters
-@app.get("/users/")
+@router.get("/users/")
 def road_user(userid:int, name:str=None):
     return {"user_id":user_id, "name": name}
 
 #combing path and query parameters
-@app.get("/users/{user_id/details}")
+@router.get("/users/{user_id/details}")
 def read_user_details(user_id: int, include_email: bool = False):
     if include_email:
         return{"user_id": user_id, "include email":"email included"}
@@ -62,14 +59,14 @@ def require_admin(user=Depends(authenticate)):
     return user
 
 # --- ROUTES ---
-@app.post("/login")
+@router.post("/login")
 def login(username: str, password: str):
     return authenticate(username, password)
 
-@app.get("/user")
+@router.get("/user")
 def get_user(user=Depends(authenticate)):
     return {"message": f"Hello {user['username']} with role {user['role']}"}
 
-@app.get("/admin")
+@router.get("/admin")
 def get_admin(user=Depends(require_admin)):
     return {"message": f"Welcome admin {user['username']}"}
